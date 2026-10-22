@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090d">
+<meta name="view-transition" content="same-origin">
+<title>Storefront</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="catalogue" data-page-title="Catalogue">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grid-texture" aria-hidden="true"></div>
+<header class="top"><div class="container nav">
+  <a class="brand" href="index.html"><span class="crest" data-brand-crest>A</span><span data-brand-name>Store</span> <span style="color:var(--gold);font-weight:500" data-brand-tagline></span></a>
+  <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu</button>
+  <nav class="links" id="links" aria-label="Main navigation">
+    <a href="index.html" data-page="home">Home</a>
+    <a href="catalogue.html" data-page="catalogue">Catalogue</a>
+    <a href="about.html" data-page="about">About</a>
+    <a href="contact.html" data-page="contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="main"><section id="catalogue"><div class="container">
+  <div class="head"><div><span class="eyebrow">Product catalogue</span><h2>Choose your item.</h2></div><p>Each product is presented separately, with its own features, price and availability. Search or filter to find a specific listing.</p></div>
+  <div class="toolbar"><label class="search"><input id="search" type="search" placeholder="Search products or features…" aria-label="Search products"></label><div class="filters" id="filters"></div></div>
+  <div id="products"></div>
+</div></section></main>
+
+<footer><div class="container foot"><span>© <span data-brand-year></span> <span data-brand-name></span> · Product showcase</span><span data-footer-note>Local demo · Replace details before sharing</span></div></footer>
+
+<div class="modal-backdrop" id="productModal" aria-hidden="true">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close product details">×</button>
+    <div class="modal-top" id="modalTop" data-num="01"><div class="modal-top-content"><span class="eyebrow" id="modalGroup">Product category</span><h2 id="modalTitle">Product details</h2></div></div>
+    <div class="modal-content">
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-section"><h3>📋 Product overview</h3><p id="modalDescription"></p><div class="features" id="modalFeatures" style="margin-top:14px"></div></div>
+      <div class="modal-section"><h3>✨ Listing details</h3><div class="detail-list" id="modalDetails"></div></div>
+      <div class="modal-section"><h3>🧾 Pricing options</h3><div id="modalTiers"></div></div>
+      <div class="modal-section"><h3>💰 Pricing</h3><p class="modal-price" id="modalPrice"></p></div>
+      <div class="modal-actions" id="modalActions"></div>
+      <p class="fine">Please confirm current availability, compatibility and terms before purchase.</p>
+    </div>
+  </section>
+</div>
+<audio id="siteMusic" src="assets/site-music.mp3" autoplay loop preload="auto" playsinline></audio>
+<div class="music-controls" id="musicControls">
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play or pause music">▶ Play</button>
+  <button class="music-btn" id="musicMute" type="button" aria-pressed="false" aria-label="Mute music">🔊</button>
+  <button class="music-btn" id="musicStop" type="button" aria-label="Stop music">⏹</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/render.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/catalogue.js"></script>
+</body></html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090d">
+<meta name="view-transition" content="same-origin">
+<title>Storefront</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="contact" data-page-title="Contact">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grid-texture" aria-hidden="true"></div>
+<header class="top"><div class="container nav">
+  <a class="brand" href="index.html"><span class="crest" data-brand-crest>A</span><span data-brand-name>Store</span> <span style="color:var(--gold);font-weight:500" data-brand-tagline></span></a>
+  <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu</button>
+  <nav class="links" id="links" aria-label="Main navigation">
+    <a href="index.html" data-page="home">Home</a>
+    <a href="catalogue.html" data-page="catalogue">Catalogue</a>
+    <a href="about.html" data-page="about">About</a>
+    <a href="contact.html" data-page="contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="main"><section id="contact"><div class="container">
+
+  <div class="head"><div><span class="eyebrow">Contact</span><h2>Questions? <span class="shine">Let's talk.</span></h2></div>
+  <p data-contact-instructions>Join our Discord server and open a ticket with the item name to purchase. For payment details or further questions, you can also contact us directly.</p></div>
+
+  <div class="discord-note" data-contact-block style="margin-bottom:22px">
+    <div class="eyebrow">💬 Primary purchasing method</div>
+    <h3 style="margin:8px 0" data-purchase-label>Purchase via Discord Ticket</h3>
+    <p class="muted" style="margin:0">Join our Discord server and raise a ticket for the item you're interested in — our team will help you from there.</p>
+    <div class="contact-actions">
+      <a class="btn discord" href="#" data-discord-ticket><span data-purchase-label>Purchase via Discord Ticket</span> ↗</a>
+    </div>
+  </div>
+
+  <div class="contact-grid" data-contact-block>
+    <div class="contact-card glass">
+      <h3>🎫 Discord tickets</h3>
+      <p>The primary way to enquire about or purchase any listing. Fast, organised, and keeps a record of your request.</p>
+      <a class="btn discord" href="#" data-discord-ticket><span data-purchase-label>Purchase via Discord Ticket</span> ↗</a>
+    </div>
+    <div class="contact-card glass">
+      <h3>💬 Direct Discord contact</h3>
+      <p>For payment details or questions you'd rather not put in a public ticket, contact the admin directly.</p>
+      <a class="btn ghost" href="#" data-discord-profile><span data-secondary-label>Contact Admin on Discord</span> ↗</a>
+    </div>
+    <div class="contact-card glass">
+      <h3>📷 Instagram</h3>
+      <p>Prefer Instagram? Reach out there for additional enquiries.</p>
+      <a class="btn instagram" href="#" data-instagram><span data-instagram-label>Contact on Instagram</span> ↗</a>
+    </div>
+  </div>
+
+  <div class="info-card glass" style="margin-top:22px">
+    <h2>Prepare a message</h2>
+    <p class="muted">Fill this out, then we'll copy it to your clipboard and open Discord so you can paste it straight into your ticket.</p>
+    <form id="contactForm">
+      <div class="field"><label for="name">Your name</label><input id="name" required placeholder="Name" maxlength="80"></div>
+      <div class="field"><label for="message">Your message</label><textarea id="message" required placeholder="What would you like to ask?" maxlength="600"></textarea></div>
+      <button class="btn" type="submit">Copy &amp; open Discord ↗</button>
+    </form>
+    <p class="fine">Nothing is sent automatically — you'll review and send it yourself inside Discord.</p>
+  </div>
+
+  <div class="info-card" style="margin-top:22px;display:none" id="noContactFallback">
+    <p class="fine">Contact links haven't been configured yet. Set them in <code>admin.html</code> → Branding.</p>
+  </div>
+
+</div></section></main>
+
+<footer><div class="container foot"><span>© <span data-brand-year></span> <span data-brand-name></span> · Product showcase</span><span data-footer-note>Local demo · Replace details before sharing</span></div></footer>
+
+<audio id="siteMusic" src="assets/site-music.mp3" autoplay loop preload="auto" playsinline></audio>
+<div class="music-controls" id="musicControls">
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play or pause music">▶ Play</button>
+  <button class="music-btn" id="musicMute" type="button" aria-pressed="false" aria-label="Mute music">🔊</button>
+  <button class="music-btn" id="musicStop" type="button" aria-label="Stop music">⏹</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/render.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/contact.js"></script>
+<script>
+  (function () {
+    var data = window.__storeData;
+    var any = data.brand.discordInvite || data.brand.discordProfile || data.brand.instagram;
+    document.getElementById("noContactFallback").style.display = any ? "none" : "";
+  })();
+</script>
+</body></html>

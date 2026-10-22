@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090d">
+<meta name="view-transition" content="same-origin">
+<title>Storefront</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="" data-page-title="">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grid-texture" aria-hidden="true"></div>
+<header class="top"><div class="container nav">
+  <a class="brand" href="index.html"><span class="crest" data-brand-crest>A</span><span data-brand-name>Store</span> <span style="color:var(--gold);font-weight:500" data-brand-tagline></span></a>
+  <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu</button>
+  <nav class="links" id="links" aria-label="Main navigation">
+    <a href="index.html" data-page="home">Home</a>
+    <a href="catalogue.html" data-page="catalogue">Catalogue</a>
+    <a href="about.html" data-page="about">About</a>
+    <a href="contact.html" data-page="contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="main"><section><div class="container">
+  <div class="head"><div><span class="eyebrow">Page</span><h2 id="pageTitle">Page</h2></div></div>
+  <div id="pageBlocks"></div>
+  <div id="pageNotFound" class="empty" style="display:none">This page could not be found. It may be a draft, renamed, or removed.</div>
+</div></section></main>
+
+<footer><div class="container foot"><span>© <span data-brand-year></span> <span data-brand-name></span> · Product showcase</span><span data-footer-note>Local demo · Replace details before sharing</span></div></footer>
+
+<audio id="siteMusic" src="assets/site-music.mp3" autoplay loop preload="auto" playsinline></audio>
+<div class="music-controls" id="musicControls">
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play or pause music">▶ Play</button>
+  <button class="music-btn" id="musicMute" type="button" aria-pressed="false" aria-label="Mute music">🔊</button>
+  <button class="music-btn" id="musicStop" type="button" aria-label="Stop music">⏹</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/render.js"></script>
+<script>
+  (function () {
+    var slug = new URLSearchParams(location.search).get("slug") || "";
+    var data = Store.loadData();
+    var page = data.pages.find(function (p) { return p.slug === slug; });
+    document.body.dataset.page = page ? "custom:" + slug : "";
+    document.body.dataset.pageTitle = page ? page.title : "Not found";
+    window.__resolvedPage = page;
+  })();
+</script>
+<script src="assets/site.js"></script>
+<script>
+  (function () {
+    var page = window.__resolvedPage;
+    if (!page) {
+      document.getElementById("pageTitle").textContent = "Page not found";
+      document.getElementById("pageNotFound").style.display = "";
+      return;
+    }
+    document.getElementById("pageTitle").textContent = page.title;
+    document.getElementById("pageBlocks").innerHTML = Render.blocks(page.blocks);
+  })();
+</script>
+</body></html>

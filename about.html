@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090d">
+<meta name="view-transition" content="same-origin">
+<title>Storefront</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="about" data-page-title="About">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grid-texture" aria-hidden="true"></div>
+<header class="top"><div class="container nav">
+  <a class="brand" href="index.html"><span class="crest" data-brand-crest>A</span><span data-brand-name>Store</span> <span style="color:var(--gold);font-weight:500" data-brand-tagline></span></a>
+  <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu</button>
+  <nav class="links" id="links" aria-label="Main navigation">
+    <a href="index.html" data-page="home">Home</a>
+    <a href="catalogue.html" data-page="catalogue">Catalogue</a>
+    <a href="about.html" data-page="about">About</a>
+    <a href="contact.html" data-page="contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="main"><section id="about"><div class="container">
+  <div class="split">
+    <article class="info-card glass">
+      <span class="eyebrow">About us</span>
+      <h2>A straightforward catalogue.<br><span class="shine">Simple support.</span></h2>
+      <p>Welcome to the showcase. This page is designed to make product information easy to browse and enquiries easy to start. Replace this sample introduction with your team's real background, support policy and product information in admin.html → Branding.</p>
+      <p class="fine">Please review all product claims, compatibility details and terms before publishing or sharing this catalogue.</p>
+      <a class="btn ghost" href="contact.html">Talk to the team ↗</a>
+    </article>
+    <article class="info-card glass">
+      <span class="eyebrow">How it works</span>
+      <h2>Simple from start to finish.</h2>
+      <div class="points">
+        <div class="point"><div class="number">01</div><div><strong>Browse individual listings</strong><span>Every product has its own dedicated card and reference.</span></div></div>
+        <div class="point"><div class="number">02</div><div><strong>Check availability</strong><span>Coming-soon or draft products are clearly labelled.</span></div></div>
+        <div class="point"><div class="number">03</div><div><strong>Open a Discord ticket</strong><span>Join our server and raise a ticket with the item name to purchase.</span></div></div>
+        <div class="point"><div class="number">04</div><div><strong>Confirm before purchase</strong><span>Ask the team to confirm current availability, compatibility and terms.</span></div></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-stat glass"><strong id="aboutCategoryCount">0</strong><span>Categories</span></div>
+    <div class="about-stat glass"><strong id="aboutItemCount">0</strong><span>Listed items</span></div>
+    <div class="about-stat glass"><strong id="aboutFeaturedCount">0</strong><span>Featured picks</span></div>
+    <div class="about-stat glass"><strong>24/7</strong><span>Browse anytime</span></div>
+  </div>
+  <div id="aboutBlocks"></div>
+</div></section></main>
+
+<footer><div class="container foot"><span>© <span data-brand-year></span> <span data-brand-name></span> · Product showcase</span><span data-footer-note>Local demo · Replace details before sharing</span></div></footer>
+
+<audio id="siteMusic" src="assets/site-music.mp3" autoplay loop preload="auto" playsinline></audio>
+<div class="music-controls" id="musicControls">
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play or pause music">▶ Play</button>
+  <button class="music-btn" id="musicMute" type="button" aria-pressed="false" aria-label="Mute music">🔊</button>
+  <button class="music-btn" id="musicStop" type="button" aria-label="Stop music">⏹</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/render.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  (function () {
+    var data = window.__storeData;
+    var published = data.items.filter(function (it) { return it.visibility === "published"; });
+    document.getElementById("aboutCategoryCount").textContent = data.categories.length;
+    document.getElementById("aboutItemCount").textContent = published.length;
+    document.getElementById("aboutFeaturedCount").textContent = published.filter(function (it) { return it.featured; }).length;
+    document.getElementById("aboutBlocks").innerHTML = Render.blocks(data.blocks.about);
+  })();
+</script>
+</body></html>

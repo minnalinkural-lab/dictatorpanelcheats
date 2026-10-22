@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090d">
+<meta name="view-transition" content="same-origin">
+<title>Storefront</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="home" data-page-title="Home">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grid-texture" aria-hidden="true"></div>
+<header class="top"><div class="container nav">
+  <a class="brand" href="index.html"><span class="crest" data-brand-crest>A</span><span data-brand-name>Store</span> <span style="color:var(--gold);font-weight:500" data-brand-tagline></span></a>
+  <button class="menu" id="menu" aria-expanded="false" aria-controls="links">Menu</button>
+  <nav class="links" id="links" aria-label="Main navigation">
+    <a href="index.html" data-page="home">Home</a>
+    <a href="catalogue.html" data-page="catalogue">Catalogue</a>
+    <a href="about.html" data-page="about">About</a>
+    <a href="contact.html" data-page="contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="main"><div class="container"><section class="hero">
+  <span class="eyebrow">The official showcase</span>
+  <h1 id="heroTitle">Welcome to<br><span class="shine">the catalogue.</span></h1>
+  <p class="lead" id="heroLead">Browse our products below.</p>
+  <div class="actions">
+    <a class="btn" href="catalogue.html">Explore products ↗</a>
+    <a class="btn ghost" href="contact.html">Contact the team</a>
+    <a class="btn discord" href="catalogue.html" data-discord-ticket>🎫 <span data-purchase-label></span> ↗</a>
+  </div>
+  <div class="hero-panel glass">
+    <div class="hero-art"><div><span class="eyebrow">Curated catalogue</span><h2>Find the right<br>fit for you.</h2></div></div>
+    <div class="hero-info">
+      <div><span class="eyebrow">Availability at a glance</span><h3>Clear options.<br>Direct support.</h3><p class="muted">Products currently listed are marked available. Unlisted or unavailable options are labelled <b>Coming soon</b> so customers can distinguish them clearly.</p></div>
+      <div class="stats"><div class="stat"><strong id="statCategories">0</strong><span>Product categories</span></div><div class="stat"><strong>24/7</strong><span>Browse the catalogue</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="featuredSection" style="display:none">
+  <div class="head"><div><span class="eyebrow">Featured</span><h2>Staff picks.</h2></div></div>
+  <div class="grid" id="featuredGrid"></div>
+</section>
+<div id="homeBlocks"></div>
+</div></main>
+
+<footer><div class="container foot"><span>© <span data-brand-year></span> <span data-brand-name></span> · Product showcase</span><span data-footer-note>Local demo · Replace details before sharing</span></div></footer>
+
+<audio id="siteMusic" src="assets/site-music.mp3" autoplay loop preload="auto" playsinline></audio>
+<div class="music-controls" id="musicControls">
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play or pause music">▶ Play</button>
+  <button class="music-btn" id="musicMute" type="button" aria-pressed="false" aria-label="Mute music">🔊</button>
+  <button class="music-btn" id="musicStop" type="button" aria-label="Stop music">⏹</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/render.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  (function () {
+    var data = window.__storeData;
+    document.getElementById("heroTitle").innerHTML = data.brand.heroTitle;
+    document.getElementById("heroLead").textContent = data.brand.heroLead;
+    document.getElementById("statCategories").textContent = data.categories.length;
+
+    var featured = data.items.filter(function (it) { return it.visibility === "published" && it.featured; });
+    if (featured.length) {
+      document.getElementById("featuredSection").style.display = "";
+      document.getElementById("featuredGrid").innerHTML = featured.map(function (it, i) { return Render.card(it, i, data.brand.purchaseLabel); }).join("");
+      document.getElementById("featuredGrid").querySelectorAll("[data-purchase]").forEach(function (b) {
+        b.addEventListener("click", function (e) { e.stopPropagation(); window.__contact.openDiscordTicket(); });
+      });
+      document.getElementById("featuredGrid").querySelectorAll("[data-open]").forEach(function (cardEl) {
+        cardEl.addEventListener("click", function (e) {
+          if (e.target.closest("button")) return;
+          location.href = "catalogue.html?item=" + encodeURIComponent(cardEl.dataset.open);
+        });
+      });
+    }
+
+    document.getElementById("homeBlocks").innerHTML = Render.blocks(data.blocks.home);
+  })();
+</script>
+</body></html>
